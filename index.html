@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Linux - Révisions TSSR</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Linux - Révisions TSSR</h1>
+  <h2>Commandes essentielles</h2>
+  <pre>
+# Créer un utilisateur
+sudo adduser dupont
+
+# Modifier droits d’un fichier
+chmod 644 fichier.txt
+chown dupont:dupont fichier.txt
+
+# Modifier sshd_config
+sudo nano /etc/ssh/sshd_config
+Port 2222
+PermitRootLogin no
+PasswordAuthentication no
+  </pre>
+
+  <h2>Cas concret examen</h2>
+  <ul>
+    <li>Changer port SSH → 2222</li>
+    <li>Interdire root → PermitRootLogin no</li>
+    <li>Activer clés publiques → PasswordAuthentication no</li>
+    <li>Créer utilisateur test + droits</li>
+  </ul>
+</body>
+</html>
