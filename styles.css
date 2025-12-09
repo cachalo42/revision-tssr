@@ -1,0 +1,45 @@
+/* Style global */
+body {
+  font-family: Arial, sans-serif;
+  margin: 40px;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+/* Titres */
+h1 {
+  color: #0066cc;
+  border-bottom: 2px solid #0066cc;
+  padding-bottom: 10px;
+}
+
+h2 {
+  color: #444;
+  margin-top: 30px;
+}
+
+/* Blocs de commandes */
+pre {
+  background: #eee;
+  padding: 10px;
+  border-radius: 5px;
+  font-family: Consolas, monospace;
+  overflow-x: auto;
+}
+
+/* Listes */
+ul {
+  margin-left: 20px;
+}
+
+/* Liens */
+a {
+  display: inline-block;
+  margin-top: 20px;
+  color: #0066cc;
+  text-decoration: none;
+  font-weight: bold;
+}
+a:hover {
+  text-decoration: underline;
+}
