@@ -3,17 +3,47 @@
 <head>
   <meta charset="UTF-8">
   <title>Réseau - Révisions TSSR</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <h1>Réseau - Révisions TSSR</h1>
-  <h2>Concepts clés</h2>
+
+  <h2>Commandes IP de base</h2>
+  <pre>
+# Afficher la configuration IP
+ip a
+
+# Ajouter une IP à une interface
+sudo ip addr add 192.168.1.10/24 dev eth0
+
+# Supprimer une IP
+sudo ip addr del 192.168.1.10/24 dev eth0
+
+# Vérifier la table ARP
+arp -a
+
+# Vérifier la connectivité
+ping 192.168.1.1
+
+# Tracer la route vers une destination
+traceroute google.com
+  </pre>
+
+  <h2>Routage et VLAN (concepts)</h2>
   <ul>
-    <li>Création de VLAN</li>
-    <li>Routage inter-VLAN</li>
-    <li>Encapsulation dot1q</li>
-    <li>Calculs IP (masque, passerelle, sous-réseaux)</li>
-    <li>Modèles OSI et TCP/IP</li>
+    <li>Création de VLAN sur switch (exemple Cisco) : <code>switchport access vlan 10</code></li>
+    <li>Encapsulation dot1q : <code>encapsulation dot1q 20</code></li>
+    <li>Routage inter-VLAN via un routeur ou L3 switch</li>
   </ul>
+
+  <h2>Services réseau</h2>
+  <pre>
+# Redémarrer le service réseau
+sudo systemctl restart networking
+
+# Vérifier le statut
+systemctl status networking
+  </pre>
 
   <a href="index.html">Retour à l’accueil</a>
 </body>
