@@ -13,8 +13,14 @@
 # Créer un utilisateur
 sudo adduser dupont
 
-# Supprimer un utilisateur
+# Supprimer un utilisateur (sans supprimer son dossier home)
 sudo deluser dupont
+
+# Supprimer un utilisateur et son dossier home
+sudo deluser --remove-home dupont
+
+# Supprimer un utilisateur et tous ses fichiers
+sudo deluser --remove-all-files dupont
 
 # Modifier le mot de passe
 sudo passwd dupont
@@ -25,8 +31,17 @@ sudo passwd dupont
 # Créer un dossier
 mkdir /home/dupont/docs
 
-# Supprimer un dossier
+# Supprimer un dossier vide
+rmdir /home/dupont/docs
+
+# Supprimer un fichier
+rm fichier.txt
+
+# Supprimer un dossier et son contenu
 rm -r /home/dupont/docs
+
+# Supprimer un dossier et son contenu sans confirmation (dangereux)
+rm -rf /home/dupont/docs
 
 # Déplacer un dossier
 mv /home/dupont/docs /srv/docs
@@ -36,21 +51,25 @@ mv /home/dupont/docs /home/dupont/documents
 
 # Créer un fichier
 touch fichier.txt
-
-# Supprimer un fichier
-rm fichier.txt
   </pre>
 
   <h2>Propriétaires et droits</h2>
   <pre>
 # Modifier le propriétaire
-sudo chown dupont:dupont /srv/docs
+sudo chown dupont fichier.txt
+
+# Modifier propriétaire et groupe
+sudo chown dupont:it fichier.txt
+
+# Modifier récursivement sur un dossier
+sudo chown -R dupont:it /srv/docs
 
 # Modifier les droits (lecture/écriture/exécution)
-chmod 755 /srv/docs
+chmod 644 fichier.txt   # propriétaire lecture/écriture, groupe+autres lecture
+chmod 755 /srv/docs     # propriétaire rwx, groupe+autres rx
 
-# Droits avancés avec setfacl
-setfacl -m u:dupont:rwx /srv/docs
+# Notation symbolique
+chmod u+rwx,g+rx,o-r /srv/app
   </pre>
 
   <h2>Services et processus</h2>
@@ -70,6 +89,21 @@ ps aux | grep apache
 # Vérifier la RAM et le disque
 free -h
 df -h
+  </pre>
+
+  <h2>Commandes réseau utiles</h2>
+  <pre>
+# Afficher configuration IP
+ip a
+
+# Vérifier la table ARP
+arp -a
+
+# Tester la connectivité
+ping 192.168.1.1
+
+# Tracer la route
+traceroute google.com
   </pre>
 
   <a href="index.html">Retour à l’accueil</a>
