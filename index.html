@@ -1,34 +1,20 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <link rel="stylesheet" href="styles.css">
   <meta charset="UTF-8">
-  <title>Linux - Révisions TSSR</title>
+  <title>Révisions TSSR</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>Linux - Révisions TSSR</h1>
-  <h2>Commandes essentielles</h2>
-  <pre>
-# Créer un utilisateur
-sudo adduser dupont
-
-# Modifier droits d’un fichier
-chmod 644 fichier.txt
-chown dupont:dupont fichier.txt
-
-# Modifier sshd_config
-sudo nano /etc/ssh/sshd_config
-Port 2222
-PermitRootLogin no
-PasswordAuthentication no
-  </pre>
-
-  <h2>Cas concret examen</h2>
-  <ul>
-    <li>Changer port SSH → 2222</li>
-    <li>Interdire root → PermitRootLogin no</li>
-    <li>Activer clés publiques → PasswordAuthentication no</li>
-    <li>Créer utilisateur test + droits</li>
-  </ul>
+  <h1>Révisions TSSR</h1>
+  <nav>
+    <ul>
+      <li><a href="linux.html">Linux</a></li>
+      <li><a href="windows.html">Windows</a></li>
+      <li><a href="reseau.html">Réseau</a></li>
+      <li><a href="scripts.html">Scripts</a></li>
+      <li><a href="exam.html">Examen</a></li>
+    </ul>
+  </nav>
 </body>
 </html>
