@@ -3,18 +3,60 @@
 <head>
   <meta charset="UTF-8">
   <title>Windows - Révisions TSSR</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <h1>Windows - Révisions TSSR</h1>
-  <h2>Active Directory</h2>
+
+  <h2>Gestion des utilisateurs (CMD)</h2>
+  <pre>
+# Créer un utilisateur
+net user dupont MonMotDePasse123 /add
+
+# Supprimer un utilisateur
+net user dupont /del
+
+# Ajouter à un groupe
+net localgroup "Administrateurs" dupont /add
+  </pre>
+
+  <h2>Active Directory (PowerShell)</h2>
+  <pre>
+# Créer un utilisateur
+New-ADUser -Name "dupont" -AccountPassword (Read-Host -AsSecureString "Password") -Enabled $true
+
+# Désactiver un utilisateur
+Disable-ADAccount -Identity "durand"
+
+# Ajouter à un groupe
+Add-ADGroupMember -Identity "IT" -Members "dupont"
+  </pre>
+
+  <h2>Gestion des dossiers et droits</h2>
+  <pre>
+# Créer un dossier partagé
+mkdir D:\Partage
+net share Donnees=D:\Partage /grant:IT,FULL
+
+# Vérifier les droits NTFS
+icacls D:\Partage
+  </pre>
+
+  <h2>GPO (Group Policy)</h2>
   <ul>
-    <li>Créer un utilisateur : <code>New-ADUser -Name "dupont"</code></li>
-    <li>Ajouter à un groupe : <code>Add-ADGroupMember -Identity "Groupe" -Members "dupont"</code></li>
-    <li>Désactiver un utilisateur : <code>Disable-ADAccount -Identity "durand"</code></li>
+    <li>Créer une GPO → <code>gpmc.msc</code></li>
+    <li>Exemple : interdire le papier peint</li>
+    <li>Forcer l’application → <code>gpupdate /force</code></li>
   </ul>
 
-  <h2>GPO</h2>
-  <p>Exemple : interdire le papier peint via une stratégie de groupe.</p>
+  <h2>Services Windows</h2>
+  <pre>
+# Vérifier un service
+Get-Service -Name "Spooler"
+
+# Redémarrer un service
+Restart-Service -Name "Spooler"
+  </pre>
 
   <a href="index.html">Retour à l’accueil</a>
 </body>
