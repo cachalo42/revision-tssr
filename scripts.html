@@ -3,19 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <title>Scripts - Révisions TSSR</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <h1>Scripts - Révisions TSSR</h1>
+
   <h2>Exemple PowerShell</h2>
   <pre>
 # Ajouter un utilisateur à une OU
 New-ADUser -Name "dupont" -Path "OU=Test,DC=entreprise,DC=local"
+
+# Sauvegarde des logs
+Get-EventLog -LogName System | Export-Csv C:\Logs\system.csv
   </pre>
 
   <h2>Exemple Bash</h2>
   <pre>
 #!/bin/bash
-tar -czf backup.tar.gz /home/user
+# Sauvegarde d’un dossier
+tar -czf /backup/home.tar.gz /home/user
+
+# Vérifier un service
+systemctl status apache2
+
+# Redémarrer un service
+sudo systemctl restart apache2
   </pre>
 
   <a href="index.html">Retour à l’accueil</a>
