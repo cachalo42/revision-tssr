@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Récapitulatif Installation Serveur NGINX (Debian 12)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        section {
+            margin-bottom: 25px;
+            padding: 15px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        code, pre {
+            background: #eee;
+            padding: 8px;
+            border-radius: 5px;
+            display: block;
+            margin: 10px 0;
+            font-family: Consolas, monospace;
+        }
+        ul {
+            margin: 10px 0;
+        }
+        .resultat {
+            background: #eafaf1;
+            border-left: 5px solid #2ecc71;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>📌 Récapitulatif Installation Serveur NGINX<br>(Debian 12)</h1>
+
+    <section>
+        <h2>1️⃣ Installation de NGINX</h2>
+        <pre>
+sudo apt update
+sudo apt install nginx -y
+systemctl status nginx
+        </pre>
+        <p>👉 Vérifier dans le navigateur : <strong>http://ip_vm</strong></p>
+    </section>
+
+    <section>
+        <h2>2⃣ Configuration de base</h2>
+        <p>Les fichiers de configuration se trouvent dans <code>/etc/nginx/</code>.</p>
+        <ul>
+            <li><code>/etc/nginx/nginx.conf</code> : configuration principale</li>
+            <li><code>/etc/nginx/sites-available/</code> : définitions des sites</li>
+            <li><code>/etc/nginx/sites-enabled/</code> : liens symboliques vers les sites actifs</li>
+        </ul>
+        <p>Exemple de configuration pour un site :</p>
+        <pre>
+server {
+    listen 80;
+    server_name exemple.local;
+    root /var/www/exemple;
+
+    index index.html index.php;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}
+        </pre>
+    </section>
+
+    <section>
+        <h2>3️⃣ Création du répertoire web</h2>
+        <pre>
+sudo mkdir -p /var/www/exemple
+sudo chown -R www-data:www-data /var/www/exemple
+sudo chmod -R 755 /var/www/exemple
+        </pre>
+        <p>👉 Créer un fichier <code>index.html</code> pour tester :</p>
+        <pre>
+echo "&lt;h1&gt;Bienvenue sur NGINX&lt;/h1&gt;" | sudo tee /var/www/exemple/index.html
+        </pre>
+    </section>
+
+    <section>
+        <h2>4️⃣ Activation du site</h2>
+        <pre>
+sudo ln -s /etc/nginx/sites-available/exemple /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl reload nginx
+        </pre>
+        <p>👉 Vérifier dans le navigateur : <strong>http://ip_vm</strong></p>
+    </section>
+
+    <section>
+        <h2>5️⃣ Support PHP-FPM (optionnel)</h2>
+        <pre>
+sudo apt install php-fpm php-mysql -y
+        </pre>
+        <p>Modifier le bloc <code>server</code> pour ajouter :</p>
+        <pre>
+location ~ \.php$ {
+    include snippets/fastcgi-php.conf;
+    fastcgi_pass unix:/run/php/php8.2-fpm.sock;
+}
+        </pre>
+    </section>
+
+    <section class="resultat">
+        <h2>✅ Résultat</h2>
+        <ul>
+            <li>NGINX est installé et sert les pages web.</li>
+            <li>La configuration est organisée par sites (<code>sites-available</code> / <code>sites-enabled</code>).</li>
+            <li>Un site de test est accessible via le navigateur.</li>
+            <li>PHP-FPM peut être intégré pour exécuter des applications dynamiques (WordPress, Nextcloud, etc.).</li>
+        </ul>
+        <p>ℹ️ NGINX est souvent utilisé comme reverse proxy, load balancer ou serveur web haute performance. Selon l’application métier, il faudra ajuster la configuration (SSL/TLS, cache, compression, sécurité).</p>
+    </section>
+  
+
+</body>
+</html>
