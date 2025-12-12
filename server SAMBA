@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Récapitulatif Installation Serveur Samba (Debian 12)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        section {
+            margin-bottom: 25px;
+            padding: 15px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        code, pre {
+            background: #eee;
+            padding: 8px;
+            border-radius: 5px;
+            display: block;
+            margin: 10px 0;
+            font-family: Consolas, monospace;
+        }
+        ul {
+            margin: 10px 0;
+        }
+        .resultat {
+            background: #eafaf1;
+            border-left: 5px solid #2ecc71;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>📌 Récapitulatif Installation Serveur Samba<br>(Debian 12)</h1>
+
+    <section>
+        <h2>1️⃣ Installation de Samba</h2>
+        <pre>
+sudo apt update
+sudo apt install samba -y
+systemctl status smbd
+systemctl status nmbd
+        </pre>
+        <p>👉 Vérifier que les services <strong>smbd</strong> et <strong>nmbd</strong> sont actifs.</p>
+    </section>
+
+    <section>
+        <h2>2⃣ Configuration du partage</h2>
+        <p>Éditer le fichier de configuration :</p>
+        <pre>
+sudo nano /etc/samba/smb.conf
+        </pre>
+        <p>Ajouter un bloc de partage :</p>
+        <pre>
+[partage]
+   path = /srv/samba/partage
+   browseable = yes
+   read only = no
+   guest ok = no
+   valid users = @smbgroup
+        </pre>
+    </section>
+
+    <section>
+        <h2>3️⃣ Création du dossier et des droits</h2>
+        <pre>
+sudo mkdir -p /srv/samba/partage
+sudo groupadd smbgroup
+sudo chown :smbgroup /srv/samba/partage
+sudo chmod 2770 /srv/samba/partage
+        </pre>
+    </section>
+
+    <section>
+        <h2>4️⃣ Gestion des utilisateurs Samba</h2>
+        <pre>
+sudo useradd -M -s /sbin/nologin utilisateur1
+sudo passwd utilisateur1
+sudo smbpasswd -a utilisateur1
+sudo smbpasswd -e utilisateur1
+        </pre>
+        <p>👉 L’utilisateur est ajouté au groupe <code>smbgroup</code> si nécessaire :</p>
+        <pre>
+sudo usermod -aG smbgroup utilisateur1
+        </pre>
+    </section>
+
+    <section>
+        <h2>5️⃣ Vérification et test</h2>
+        <pre>
+testparm
+        </pre>
+        <p>👉 Depuis un poste client Windows ou Linux :</p>
+        <ul>
+            <li>Accéder au partage via <code>\\ip_du_serveur\partage</code></li>
+            <li>Ou monter le partage sous Linux :</li>
+        </ul>
+        <pre>
+sudo mount -t cifs //ip_du_serveur/partage /mnt/samba -o username=utilisateur1
+        </pre>
+    </section>
+
+    <section class="resultat">
+        <h2>✅ Résultat</h2>
+        <ul>
+            <li>Samba est installé et fonctionne.</li>
+            <li>Un dossier partagé est accessible aux utilisateurs autorisés.</li>
+            <li>Les droits sont correctement appliqués via le groupe <code>smbgroup</code>.</li>
+            <li>Les utilisateurs Samba peuvent se connecter avec leurs identifiants.</li>
+        </ul>
+        <p>ℹ️ Samba permet de partager des fichiers entre Linux et Windows. Selon le contexte, on peut configurer des partages publics, privés, ou intégrer Samba à un domaine Active Directory.</p>
+    </section>
+
+</body>
+</html>
