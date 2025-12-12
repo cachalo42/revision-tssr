@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Récapitulatif Installation Serveur LAMP (Debian 12 + MariaDB)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        section {
+            margin-bottom: 25px;
+            padding: 15px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        code, pre {
+            background: #eee;
+            padding: 8px;
+            border-radius: 5px;
+            display: block;
+            margin: 10px 0;
+            font-family: Consolas, monospace;
+        }
+        ul {
+            margin: 10px 0;
+        }
+        .resultat {
+            background: #eafaf1;
+            border-left: 5px solid #2ecc71;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>📌 Récapitulatif Installation Serveur LAMP<br>(Debian 12 + MariaDB)</h1>
+
+    <section>
+        <h2>1️⃣ Installation d’Apache2</h2>
+        <pre>
+sudo apt update
+sudo apt install apache2 -y
+systemctl status apache2
+        </pre>
+        <p>👉 Vérifier dans le navigateur : <strong>http://ip_vm</strong></p>
+    </section>
+
+    <section>
+        <h2>2⃣ Installation de MariaDB (serveur + client)</h2>
+        <pre>
+sudo apt install mariadb-server mariadb-client -y
+systemctl status mariadb
+sudo mysql_secure_installation
+        </pre>
+        <p>👉 Sécurisation : mot de passe root, suppression base test, désactivation accès anonymes.</p>
+    </section>
+
+    <section>
+        <h2>3️⃣ Création d’une base de données</h2>
+        <pre>
+sudo mysql -u root -p
+        </pre>
+        <pre>
+CREATE DATABASE lampdb CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE USER 'lampuser'@'localhost' IDENTIFIED BY 'MotDePasseFort';
+GRANT ALL PRIVILEGES ON lampdb.* TO 'lampuser'@'localhost';
+FLUSH PRIVILEGES;
+EXIT;
+        </pre>
+    </section>
+
+    <section>
+        <h2>4️⃣ Installation de PHP et modules</h2>
+        <pre>
+sudo apt install php libapache2-mod-php php-mysql -y
+sudo apt install php-curl php-xml php-mbstring php-ldap php-imap php-apcu php-zip php-intl php-bz2 php-gd -y
+php -v
+        </pre>
+    </section>
+
+    <section>
+        <h2>5️⃣ Test PHP avec Apache</h2>
+        <p>Créer un fichier de test :</p>
+        <pre>
+sudo nano /var/www/html/info.php
+        </pre>
+        <p>Contenu :</p>
+        <pre>
+&lt;?php
+phpinfo();
+?&gt;
+        </pre>
+        <p>👉 Vérifier dans le navigateur : <strong>http://ip_vm/info.php</strong></p>
+        <p>Supprimer ensuite le fichier pour éviter les failles :</p>
+        <pre>
+sudo rm /var/www/html/info.php
+        </pre>
+    </section>
+
+    <section class="resultat">
+        <h2>✅ Résultat</h2>
+        <ul>
+            <li>Apache2 fonctionne et sert les pages web.</li>
+            <li>MariaDB est installé, sécurisé et prêt à gérer les bases.</li>
+            <li>PHP est opérationnel avec les modules nécessaires.</li>
+            <li>Le serveur est prêt à accueillir une application métier (GLPI, WordPress, Nextcloud…).</li>
+        </ul>
+        <p>ℹ️ Le socle LAMP suffit pour héberger une application, mais selon le logiciel métier (GLPI, WordPress, Nextcloud), il faut ajouter des modules PHP spécifiques.<br>
+        Exemple : GLPI utilise <code>php-ldap</code> pour l’intégration Active Directory et <code>php-imap</code> pour la gestion des tickets par mail.</p>
+    </section>
+
+</body>
+</html>
