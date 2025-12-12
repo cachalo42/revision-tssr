@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Révision TSSR — Questions/Réponses</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; background: #f9f9f9; line-height: 1.6; }
+    h1 { text-align: center; color: #2c3e50; margin-bottom: 30px; }
+    h2 { color: #2c3e50; margin-top: 30px; }
+    section { background: #fff; padding: 15px; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    .question { font-weight: bold; margin-top: 10px; }
+    .reponse { margin-left: 15px; }
+    ul { margin: 10px 0; }
+    nav { background: #2c3e50; padding: 10px; border-radius: 8px; margin-bottom: 20px; }
+    nav a { color: #fff; margin-right: 15px; text-decoration: none; }
+    nav a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <h1>📘 Révision TSSR — Questions/Réponses</h1>
+
+  <!-- Table des matières -->
+  <nav>
+    <a href="#reseau">Réseau</a>
+    <a href="#ad">Active Directory</a>
+    <a href="#windows">Windows</a>
+    <a href="#linux">Linux</a>
+    <a href="#virtualisation">Virtualisation</a>
+    <a href="#securite">Sécurité</a>
+    <a href="#dns">DNS/DHCP</a>
+    <a href="#supervision">Supervision</a>
+    <a href="#entretien">Entretien</a>
+  </nav>
+
+  <!-- Thème Réseau -->
+  <section id="reseau">
+    <h2>🌐 Thème 1 — Réseau</h2>
+    <p class="question">1️⃣ Différence IP publique / privée</p>
+    <p class="reponse">➡️ IP privée = LAN, non routable Internet (192.168.x.x, 10.x.x.x, 172.16-31.x.x).<br>
+    IP publique = attribuée par FAI, joignable depuis Internet.</p>
+
+    <p class="question">2️⃣ Masque de sous-réseau</p>
+    <p class="reponse">➡️ Définit partie réseau vs hôte. Exemple : 255.255.255.0 → 254 adresses utilisables.</p>
+
+    <p class="question">3️⃣ IPv4 vs IPv6</p>
+    <p class="reponse">➡️ IPv4 = 32 bits, limité, NAT. IPv6 = 128 bits, quasi illimité, IPsec intégré.</p>
+
+    <p class="question">4️⃣ Passerelle par défaut</p>
+    <p class="reponse">➡️ Routeur qui permet d’accéder à Internet ou autres réseaux.</p>
+
+    <p class="question">5️⃣ Switch vs routeur</p>
+    <p class="reponse">➡️ Switch = niveau 2 (MAC). Routeur = niveau 3 (IP, interconnexion réseaux).</p>
+
+    <p class="question">6️⃣ VLAN</p>
+    <p class="reponse">➡️ Segmentation logique d’un réseau pour sécurité/gestion. Inter-VLAN = routeur ou switch L3.</p>
+
+    <p class="question">7️⃣ Table ARP</p>
+    <p class="reponse">➡️ Associe IP ↔ MAC. Commandes : arp -a / ip neigh.</p>
+
+    <p class="question">8️⃣ Communication entre VLAN</p>
+    <p class="reponse">➡️ Routeur ou switch L3 avec inter-VLAN routing.</p>
+
+    <p class="question">9️⃣ Vérifier connectivité</p>
+    <p class="reponse">➡️ ping, tracert/traceroute, telnet/nc, Test-NetConnection, route print/ip route.</p>
+
+    <p class="question">🔟 Ping OK mais pas HTTP</p>
+    <p class="reponse">➡️ Machine joignable mais service web indisponible ou bloqué.</p>
+
+    <p class="question">1️⃣1️⃣ Étapes diagnostic réseau</p>
+    <p class="reponse">➡️ Câbles → IP/masque/passerelle → ping → DNS → pare-feu/proxy.</p>
+  </section>
+
+  <!-- Thème Active Directory -->
+  <section id="ad">
+    <h2>🧩 Thème 2 — Active Directory / Windows Server</h2>
+    <p class="question">Compte local vs domaine</p>
+    <p class="reponse">➡️ Local = machine seule. Domaine = AD, multi-postes.</p>
+    <p class="question">Restreindre droits utilisateur</p>
+    <p class="reponse">➡️ NTFS, GPO, retirer du groupe Admin.</p>
+    <p class="question">Domaine</p>
+    <p class="reponse">➡️ Ensemble machines/utilisateurs géré par AD.</p>
+    <p class="question">OU</p>
+    <p class="reponse">➡️ Organiser objets et appliquer GPO ciblées.</p>
+    <p class="question">Créer GPO</p>
+    <p class="reponse">➡️ gpmc.msc → Créer/lier → config ou PowerShell.</p>
+    <p class="question">Forcer GPO</p>
+    <p class="reponse">➡️ gpupdate /force.</p>
+    <p class="question">Objets AD</p>
+    <p class="reponse">➡️ Utilisateur, groupe, ordinateur, contact, OU, GPO, imprimantes, domaine.</p>
+    <p class="question">Partage réseau</p>
+    <p class="reponse">➡️ Dossier sur serveur, permissions sur groupes/OU.</p>
+  </section>
+
+  <!-- Thème Windows -->
+  <section id="windows">
+    <h2>🗂️ Thème 3 — Windows</h2>
+    <p class="question">NTFS vs Partage</p>
+    <p class="reponse">➡️ NTFS = permissions fines locale/réseau. Partage = réseau. Restriction finale = plus restrictive.</p>
+    <p class="question">Partager dossier lecture seule</p>
+    <p class="reponse">➡️ Propriétés → Partage avancé → Lecture + vérifier NTFS.</p>
+    <p class="question">Surveillance performances</p>
+    <p class="reponse">➡️ Gestionnaire tâches, Moniteur ressources, Perfmon.</p>
+    <p class="question">Logs système</p>
+    <p class="reponse">➡️ eventvwr.msc.</p>
+    <p class="question">Tâche automatique</p>
+    <p class="reponse">➡️ taskschd.msc.</p>
+  </section>
+
+  <!-- Thème Linux -->
+  <section id="linux">
+    <h2>🐧 Thème 4 — Linux</h2>
+    <p class="reponse">➡️ Créer utilisateur : sudo adduser nom<br>
+    Espace disque : df -h<br>
+    Processus : ps -ef / top<br>
+    Interfaces réseau : ip addr show / ifconfig<br>
+    Redémarrer SSH : sudo systemctl restart ssh<br>
+    Vérifier SSH : sudo systemctl status ssh<br>
+    Logs : /var/log/syslog, /var/log/messages, /var/log/auth.log<br>
+    Changer port SSH : /etc/ssh/sshd_config → restart<br>
+    Interdire root SSH : PermitRootLogin no</p>
+  </section>
+
+  <!-- Thème Virtualisation -->
+  <section id="virtualisation">
+    <h2>🖥️ Thème 5 — Virtualisation</h2>
+    <p class="reponse">➡️ Type 1 = bare metal (ESXi, Hyper-V). Type 2 = OS hôte (VMware Workstation, VirtualBox).<br>
+    Outils : VirtualBox, VMware, Hyper-V, Proxmox, KVM.<br>
+    Snapshot = état VM instantané.<br>
+    Clonage = copie complète ou liée.<br>
+    Réseau interne = Internal/Host-only.<br>
+    Config minimale serveur AD = 2 vCPU, 4 Go RAM, 40 Go disque.</p>
+  </section>
+
+   <!-- Thème Sécurité -->
+  <section id="securite">
+    <h2>🔒 Thème 6 — Sécurité / Sauvegardes / PRA</h2>
+    <p class="question">Politique de mot de passe</p>
+    <p class="reponse">➡️ Longueur, complexité, expiration, historique.</p>
+
+    <p class="question">Authentification vs Autorisation</p>
+    <p class="reponse">➡️ Authentification = prouver identité. Autorisation = définir droits et ressources accessibles.</p>
+
+    <p class="question">Principe du moindre privilège</p>
+    <p class="reponse">➡️ Accorder uniquement les droits nécessaires.</p>
+
+    <p class="question">Pare-feu matériel vs logiciel</p>
+    <p class="reponse">➡️ Matériel = appliance réseau dédiée. Logiciel = intégré OS (Windows Firewall, iptables).</p>
+
+    <p class="question">DMZ</p>
+    <p class="reponse">➡️ Zone intermédiaire LAN/Internet pour serveurs publics (web, mail).</p>
+
+    <p class="question">Mises à jour</p>
+    <p class="reponse">➡️ Corrigent failles, améliorent stabilité. Automatisation via Windows Update ou cron/yum/apt.</p>
+
+    <p class="question">Antivirus</p>
+    <p class="reponse">➡️ Defender, AVG, Bitdefender, Avast, Kaspersky, Sophos, ESET…</p>
+
+    <p class="question">Sauvegarde complète / incrémentielle / différentielle</p>
+    <p class="reponse">➡️ Complète = tout. Incrémentielle = modifiés depuis dernière sauvegarde. Différentielle = modifiés depuis dernière complète.</p>
+
+    <p class="question">PRA</p>
+    <p class="reponse">➡️ Procédures, contacts, ressources pour reprise d’activité après sinistre.</p>
+
+    <p class="question">Tester sauvegarde</p>
+    <p class="reponse">➡️ Restaurer dans environnement test.</p>
+  </section>
+
+  <!-- Thème DNS/DHCP -->
+  <section id="dns">
+    <h2>🌍 Thème 7 — DNS / DHCP / Services réseau</h2>
+    <p class="question">DNS</p>
+    <p class="reponse">➡️ Traduit noms de domaine en IP.</p>
+
+    <p class="question">Enregistrements A / CNAME / PTR</p>
+    <p class="reponse">➡️ A = nom → IP. CNAME = alias. PTR = IP → nom.</p>
+
+    <p class="question">Tester DNS</p>
+    <p class="reponse">➡️ nslookup, dig, ping nomdomaine.</p>
+
+    <p class="question">DHCP</p>
+    <p class="reponse">➡️ Attribue IP, masque, passerelle, DNS automatiquement.</p>
+
+    <p class="question">Bail DHCP</p>
+    <p class="reponse">➡️ IP attribuée + durée + infos réseau.</p>
+
+    <p class="question">Renouvellement IP</p>
+    <p class="reponse">➡️ Windows : ipconfig /release /renew. Linux : dhclient -r puis dhclient.</p>
+
+    <p class="question">HTTP vs HTTPS</p>
+    <p class="reponse">➡️ HTTP = clair. HTTPS = chiffré via SSL/TLS.</p>
+
+    <p class="question">FTP</p>
+    <p class="reponse">➡️ Port 21 (contrôle), 20 ou dynamique (données).</p>
+
+    <p class="question">Vérifier service web</p>
+    <p class="reponse">➡️ netstat -an, telnet ip port, systemctl status apache2/nginx.</p>
+  </section>
+
+  <!-- Thème Supervision -->
+  <section id="supervision">
+    <h2>📊 Thème 8 — Supervision / Diagnostic / Ports</h2>
+    <p class="question">Serveur Syslog</p>
+    <p class="reponse">➡️ Centralise logs système et équipements réseau.</p>
+
+    <p class="question">SNMP</p>
+    <p class="reponse">➡️ Supervision équipements réseau.</p>
+
+    <p class="question">Outils supervision</p>
+    <p class="reponse">➡️ Zabbix, Nagios, PRTG, Centreon, Grafana.</p>
+
+    <p class="question">Logs Linux</p>
+    <p class="reponse">➡️ /var/log/syslog, /var/log/messages, /var/log/auth.log.</p>
+
+    <p class="question">Utilisateur sans Internet</p>
+    <p class="reponse">➡️ Vérifier câbles, IP, ping passerelle, DNS, pare-feu, proxy.</p>
+
+    <p class="question">Service en panne</p>
+    <p class="reponse">➡️ systemctl status, journalctl -xe, logs spécifiques.</p>
+
+    <p class="question">Ports essentiels</p>
+    <p class="reponse">➡️ HTTP 80, HTTPS 443, SSH 22, FTP 21, SMTP 25, IMAP 143, IMAPS 993, POP3 110, POP3S 995, DNS 53, SNMP 161, LDAP 389, LDAPS 636, Kerberos 88, RDP 3389, MySQL/MariaDB 3306, SQL Server 1433, NTP 123, DHCP 67/68.</p>
+  </section>
+
+  <!-- Thème Entretien -->
+  <section id="entretien">
+    <h2>🎓 Thème 9 — Entretien final</h2>
+    <p class="question">Poursuite des études</p>
+    <p class="reponse">➡️ BTS SIO SISR, TSSR, autres parcours.</p>
+
+    <p class="question">Pourquoi école/entreprise</p>
+    <p class="reponse">➡️ Correspond au projet pro, moyens techniques adaptés.</p>
+
+    <p class="question">Technicien proximité</p>
+    <p class="reponse">➡️ Installe, configure, dépanne matériel/logiciel, support utilisateurs.</p>
+
+    <p class="question">Veille informatique</p>
+    <p class="reponse">➡️ Suivi évolutions systèmes, logiciels, sécurité.</p>
+
+    <p class="question">Dossier pro / ECF</p>
+    <p class="reponse">➡️ Présenter interventions, compétences, problèmes et solutions.</p>
+
+    <h3>🔹 Couches OSI</h3>
+    <ul>
+      <li>7 Application → Protocoles applicatifs (HTTP, FTP…)</li>
+      <li>6 Présentation → Chiffrement, compression, formatage</li>
+      <li>5 Session → Gestion des sessions</li>
+      <li>4 Transport → TCP/UDP, ports, fiabilité</li>
+      <li>3 Réseau → Routage, IP</li>
+      <li>2 Liaison → MAC, trames, switch</li>
+      <li>1 Physique → Câbles, signaux</li>
+    </ul>
+  </section>
+
+</body>
+</html>
