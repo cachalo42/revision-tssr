@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <link rel="stylesheet" href="styles.css">
     <meta charset="UTF-8">
     <title>Connexion SSH vers Debian 12</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
@@ -42,8 +42,63 @@
 
 <h2>1. Installer le serveur SSH (sur Debian 12)</h2>
 <pre><code>su</code></pre>
-<p>Entrer le mot de passe
+<p>Entrer le mot de passe <strong>root</strong>.</p>
 
-  <a href="index.html">Retour à l’accueil</a>
+<h2>2. Installer le paquet SSH</h2>
+<pre><code>apt update
+apt install openssh-server</code></pre>
+
+<h2>3. Vérifier que le service SSH fonctionne</h2>
+<pre><code>systemctl status ssh</code></pre>
+<p>Si le service n’est pas actif :</p>
+<pre><code>systemctl start ssh
+systemctl enable ssh</code></pre>
+
+<h2>4. Connaître l’adresse IP du serveur</h2>
+<pre><code>ip a</code></pre>
+<p>Repérer l’adresse IP sur l’interface réseau (ex. 192.168.1.50).</p>
+
+<h2>5. Vérifier le pare-feu (optionnel)</h2>
+<pre><code>ufw status
+ufw allow ssh
+ufw reload</code></pre>
+
+<h2>6. Connexion depuis un autre PC</h2>
+<p>Depuis Linux ou macOS :</p>
+<pre><code>ssh mustapha@192.168.1.50</code></pre>
+<p>Depuis Windows (PowerShell) :</p>
+<pre><code>ssh mustapha@192.168.1.50</code></pre>
+
+<h2>7. Première connexion</h2>
+<p>Si le message suivant apparaît :</p>
+<pre><code>The authenticity of host '192.168.1.50' can't be established.
+Are you sure you want to continue connecting (yes/no)?</code></pre>
+<p>Répondre <code>yes</code> et entrer le mot de passe de l’utilisateur.</p>
+
+<h2>8. Vérification</h2>
+<pre><code>whoami
+hostname</code></pre>
+<p>Résultat attendu :</p>
+<pre><code>mustapha
+debian12</code></pre>
+
+<h2>9. Quitter la session SSH</h2>
+<pre><code>exit</code></pre>
+
+<h2>Bonnes pratiques</h2>
+<ul>
+    <li>Ne jamais se connecter directement en root via SSH</li>
+    <li>Utiliser un utilisateur avec sudo</li>
+    <li>Port SSH par défaut : 22</li>
+</ul>
+
+<div class="note">
+<strong>Astuce TSSR :</strong><br>
+Pour plus de sécurité, désactiver le login root via SSH et utiliser des clés SSH.
+</div>
+
+<br>
+<a href="index.html">Retour à l’accueil</a>
+
 </body>
 </html>
