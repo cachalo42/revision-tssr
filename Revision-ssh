@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Connexion SSH vers Debian 12</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-left: 4px solid #3498db;
+            overflow-x: auto;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 3px 6px;
+            border-radius: 4px;
+        }
+        .important {
+            color: #c0392b;
+            font-weight: bold;
+        }
+        .note {
+            background-color: #ecf0f1;
+            padding: 10px;
+            border-left: 4px solid #95a5a6;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>Connexion SSH vers un serveur Debian 12</h1>
+
+<h2>1. Installer le serveur SSH (sur Debian 12)</h2>
+<pre><code>su</code></pre>
+<p>Entrer le mot de passe
