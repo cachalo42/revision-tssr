@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Installation de sudo sur Debian</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 3px 6px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-left: 4px solid #3498db;
+            overflow-x: auto;
+        }
+        .important {
+            color: #c0392b;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>Installer sudo sur Debian (procédure correcte)</h1>
+
+<h2>1. Passer en root</h2>
+<pre><code>su</code></pre>
+<p>Entrer le mot de passe <strong>root</strong>.</p>
+
+<h2>2. Installer sudo</h2>
+<pre><code>apt install sudo</code></pre>
+
+<h2>3. Ajouter l’utilisateur au groupe sudo</h2>
+<pre><code>/usr/sbin/usermod -a -G sudo mustapha</code></pre>
+<p class="important">⚠️ Ne pas oublier l’option <code>-a</code> (append).</p>
+
+<h2>4. Quitter la session root</h2>
+<pre><code>exit</code></pre>
+
+<h2>5. Quitter la session utilisateur</h2>
+<pre><code>exit</code></pre>
+<p>Cette étape permet de recharger les groupes de l’utilisateur.</p>
+
+<h2>6. Se reconnecter avec l’utilisateur <code>mustapha</code></h2>
+
+<h2>7. Vérifier l’appartenance au groupe sudo</h2>
+<pre><code>groups</code></pre>
+<p>Si <code>sudo</code> apparaît dans la liste, l’installation est correcte.</p>
+
+<h2>8. Test final (optionnel)</h2>
+<pre><code>sudo whoami</code></pre>
+<p>Résultat attendu :</p>
+<pre><code>root</code></pre>
+
+<hr>
+
+<p><strong>Conclusion :</strong>  
+L’utilisateur peut maintenant utiliser <code>sudo</code> pour exécuter des commandes administrateur.</p>
+
+</body>
+</html>
