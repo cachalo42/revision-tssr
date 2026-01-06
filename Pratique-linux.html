@@ -1,0 +1,112 @@
+```html
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Révision Linux – TSSR</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            color: #333;
+            margin: 40px;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+        h2 {
+            color: #1f6feb;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 5px;
+        }
+        pre {
+            background-color: #0d1117;
+            color: #c9d1d9;
+            padding: 15px;
+            overflow-x: auto;
+            border-radius: 6px;
+        }
+        code {
+            font-family: Consolas, monospace;
+        }
+        .capture {
+            margin: 10px 0 30px 0;
+            font-style: italic;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Révision Linux – Examen TSSR</h1>
+
+<h2>1. Configuration du service SSH</h2>
+<pre><code>sudo nano /etc/ssh/sshd_config
+
+Port 2222
+PermitRootLogin no
+PubkeyAuthentication yes
+PasswordAuthentication no
+DenyUsers test
+</code></pre>
+<pre><code>sudo systemctl restart ssh
+sudo systemctl status ssh
+</code></pre>
+<p class="capture">📸 Capture : fichier sshd_config + redémarrage du service</p>
+
+<h2>2. Gestion des utilisateurs</h2>
+<pre><code>sudo useradd -m -s /bin/bash user1
+sudo passwd user1
+sudo usermod -aG sudo user1
+groups user1
+</code></pre>
+<p class="capture">📸 Capture : commandes useradd, passwd, usermod</p>
+
+<h2>3. Gestion des fichiers et des droits</h2>
+<pre><code>mkdir /opt/test_dossier
+touch /opt/test_dossier/fichier.txt
+chmod 750 /opt/test_dossier
+chmod 640 /opt/test_dossier/fichier.txt
+sudo chown user1:user1 /opt/test_dossier/fichier.txt
+ls -l /opt/test_dossier
+</code></pre>
+<p class="capture">📸 Capture : ls -l, chmod, chown</p>
+
+<h2>4. Supervision système</h2>
+<pre><code>top
+free -h
+df -h
+</code></pre>
+<p class="capture">📸 Capture : supervision système</p>
+
+<h2>5. Tâche planifiée (cron)</h2>
+<pre><code>crontab -e
+
+0 2 * * * /usr/bin/apt update >> /home/user1/cron.log
+</code></pre>
+<p class="capture">📸 Capture : crontab -e</p>
+
+<h2>6. Sauvegarde de fichiers</h2>
+<pre><code>cp /opt/test_dossier/fichier.txt /home/user1/fichier_backup.txt
+
+rsync -av /opt/test_dossier/ /home/user1/sauvegarde/
+</code></pre>
+<p class="capture">📸 Capture : commande cp ou rsync</p>
+
+<h2>7. Gestion des paquets</h2>
+<pre><code>sudo apt update
+sudo apt upgrade -y
+</code></pre>
+<p class="capture">📸 Capture : apt update / upgrade</p>
+
+<h2>8. Redémarrage du système</h2>
+<pre><code>sudo reboot
+# ou
+sudo shutdown -r now
+</code></pre>
+<p class="capture">📸 Capture : commande de redémarrage</p>
+
+</body>
+</html>
+```
